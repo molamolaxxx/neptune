@@ -1,0 +1,72 @@
+{
+  "ruleName" : "测试规则",
+  "subRules" : [
+    {
+      "subRuleName": "测试子规则1#数字比较",
+      "subRuleCode": "sub_rule1",
+      "param": {
+        "type": "int",
+        "code": "input.param1"
+      },
+      "matchMethod": ">=",
+      "value": [
+        {
+          "type": "int",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "subRuleName": "测试子规则2#字符串比较",
+      "subRuleCode": "sub_rule2",
+      "param": {
+        "type": "String",
+        "code": "input.param2"
+      },
+      "matchMethod": "contains|all",
+      "value": [
+        {
+          "type": "String",
+          "value": "hello"
+        },
+        {
+          "type": "String",
+          "value": "world"
+        }
+      ]
+    },
+    {
+      "subRuleName": "测试子规则3#日期比较",
+      "subRuleCode": "sub_rule3",
+      "param": {
+        "type": "Date",
+        "code": "input.date1"
+      },
+      "matchMethod": "after|all",
+      "value": [
+        {
+          "type": "Date",
+          "value": "1717268073904"
+        }
+      ]
+    }
+  ],
+  "conditions" : [
+    {
+      "conditionName": "条件1#返回",
+      "expression": "sub_rule2",
+      "action": {
+        "type": "return",
+        "content": "条件1匹配成功"
+      }
+    },
+    {
+      "conditionName": "条件2#返回",
+      "expression": "sub_rule1 && sub_rule3",
+      "action": {
+        "type": "return",
+        "content": "条件2匹配成功"
+      }
+    }
+  ]
+}
