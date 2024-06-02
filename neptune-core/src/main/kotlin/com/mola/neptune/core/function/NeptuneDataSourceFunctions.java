@@ -18,7 +18,7 @@ public class NeptuneDataSourceFunctions {
      * @param where
      * @return
      */
-    public static List<String> fetchFromMysql(String db, String tb, List<String> where) {
+    public static List<String> fetchFromMysql(String db, String tb,String col, List<String> where) {
         return new ArrayList<>();
     }
 

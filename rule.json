@@ -62,10 +62,11 @@
         {
           "type": "Dynamic",
           "dataSource": {
-            "type": "redis",
+            "type": "mysql",
             "db": "test_db",
             "tb": "test_tb",
-            "where": "a = 1 and b = 2"
+            "col": "a",
+            "where": ["a = 1"]
           }
         }
       ]

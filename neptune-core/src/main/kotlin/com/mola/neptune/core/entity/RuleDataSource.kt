@@ -20,12 +20,14 @@ class RuleDataSource: RuleParts {
 
     lateinit var tb: String
 
+    lateinit var col: String
+
     lateinit var where: List<String>
 
     override fun accept(visitor: NeptuneRulePartVisitor) {
         if (type == DataSourceTypeEnum.MYSQL.code) {
             visitor.addTemp("NeptuneDataSourceFunctions" +
-                    ".fetchFromMysql('$db', '$tb', ${JSON.toJSONString(where)})")
+                    ".fetchFromMysql('$db', '$tb','$col', ${JSON.toJSONString(where)})")
             return
         }
         if (type == DataSourceTypeEnum.REDIS.code) {

@@ -17,7 +17,8 @@ object NeptuneRuleLoader {
         val ruleParser = NeptuneRuleParser()
         val ruleConfig: RuleConfig = ruleParser.parseConfig(ruleDsl)
         val script = ruleParser.transfer2Groovy(ruleConfig)
-        println("ruleName: $ruleName, loadScript: $script")
+        println("ruleName: $ruleName, loadScript:")
+        println(script)
         ruleScriptMap[ruleName] = script
     }
 
