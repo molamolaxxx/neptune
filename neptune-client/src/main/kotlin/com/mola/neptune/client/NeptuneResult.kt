@@ -9,9 +9,9 @@ package com.mola.neptune.client
  **/
 class NeptuneResult {
 
-    lateinit var content: String
+    var content: String? = null
 
-    lateinit var context: RuleContext
+    var context: RuleContext
 
     constructor(content: String, context: RuleContext) {
         this.content = content

@@ -1,5 +1,6 @@
 package com.mola.neptune.core.entity
 
+import com.mola.neptune.core.enums.NeptuneDataTypeEnum
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 import com.mola.neptune.core.parser.RuleParts
 
@@ -19,14 +20,15 @@ class SubRuleValue : RuleParts{
     lateinit var dataSource: RuleDataSource
 
     override fun accept(visitor: NeptuneRulePartVisitor) {
-        if (type == "String") {
+        if (type == NeptuneDataTypeEnum.STRING.code ||
+            type == NeptuneDataTypeEnum.NUMBER.code) {
             visitor.addTemp("'$value'")
             return
         }
-        if (type == "Date") {
+        if (type == NeptuneDataTypeEnum.DATE.code) {
             visitor.addTemp("new Date($value)")
             return
         }
-        visitor.addTemp(value!!)
+        throw RuntimeException("unknown value data type : $type")
     }
 }

@@ -1,5 +1,6 @@
 package com.mola.neptune.core.entity
 
+import com.mola.neptune.core.enums.NeptuneMatchMethodEnum
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 import com.mola.neptune.core.parser.RuleParts
 
@@ -12,10 +13,6 @@ import com.mola.neptune.core.parser.RuleParts
  **/
 class SubRule: RuleParts {
 
-    private val directMatchMethods: Set<String> = setOf(
-        ">", "<", ">=", "<=", "=="
-    )
-
     lateinit var subRuleName: String
 
     lateinit var subRuleCode: String
@@ -26,29 +23,29 @@ class SubRule: RuleParts {
 
     lateinit var value: List<SubRuleValue>
 
-    override fun accept(ruleVisitor: NeptuneRulePartVisitor) {
-        ruleVisitor.addLine("// $subRuleName")
-        ruleVisitor.add("def $subRuleCode = ")
+    override fun accept(visitor: NeptuneRulePartVisitor) {
+        visitor.addLine("// $subRuleName")
+        visitor.add("def $subRuleCode = ")
 
         // 解析param
-        param.accept(ruleVisitor)
-        val paramTemp: String = ruleVisitor.getTemp()
+        param.accept(visitor)
+        val paramTemp: String = visitor.getTemp()
 
         // 解析value
         val paramAndValue: MutableList<String> = mutableListOf()
         for (ruleValue in value) {
-            ruleValue.accept(ruleVisitor)
-            val valueTemp: String = ruleVisitor.getTemp()
+            ruleValue.accept(visitor)
+            val valueTemp: String = visitor.getTemp()
             paramAndValue.add(getMatchMethodPattern(matchMethod, paramTemp, valueTemp, subRuleCode))
         }
         if (matchAll()) {
-            ruleVisitor.add("(${paramAndValue.joinToString(" &&\n ")})")
+            visitor.add("(${paramAndValue.joinToString(" &&\n ")})")
         } else {
-            ruleVisitor.add("(${paramAndValue.joinToString(" ||\n ")})")
+            visitor.add("(${paramAndValue.joinToString(" ||\n ")})")
         }
 
-        ruleVisitor.newLine()
-        ruleVisitor.addLine("ctx.addSubRuleResult('$subRuleCode', $subRuleCode)")
+        visitor.newLine()
+        visitor.addLine("ctx.addSubRuleResult('$subRuleCode', $subRuleCode)")
     }
 
     private fun matchAll(): Boolean {
@@ -67,15 +64,9 @@ class SubRule: RuleParts {
         // 解析matchMethod
         val split = matchMethod.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val matchMethodCode = split[0]
-        if (directMatchMethods.contains(matchMethodCode)) {
-            return "$paramTemp $matchMethodCode $valueTemp"
-        }
-        when(matchMethodCode) {
-            "after" ->
-                return "NeptuneFunctions.leftAfterRight($paramTemp, $valueTemp, ctx, '$subRuleCode')"
-            "contains" ->
-                return "NeptuneFunctions.leftContainsRight($paramTemp, $valueTemp, ctx, '$subRuleCode')"
-        }
-        throw RuntimeException("unknown match method: $matchMethodCode")
+        val methodEnum: NeptuneMatchMethodEnum = NeptuneMatchMethodEnum.getByCode(matchMethodCode)
+            ?: throw RuntimeException("unknown match method: $matchMethodCode")
+
+        return "NeptuneFunctions.${methodEnum.code}($paramTemp, $valueTemp, ctx, '$subRuleCode')"
     }
 }

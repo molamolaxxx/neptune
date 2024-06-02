@@ -18,13 +18,12 @@ class RuleCondition: RuleParts {
 
     lateinit var action: RuleAction
 
-    override fun accept(ruleVisitor: NeptuneRulePartVisitor) {
-        ruleVisitor.addLine("// $conditionName")
-        ruleVisitor.add("if ($expression) {")
-        ruleVisitor.newLine()
-        action.accept(ruleVisitor)
-        ruleVisitor.add("}")
-        ruleVisitor.newLine()
+    override fun accept(visitor: NeptuneRulePartVisitor) {
+        visitor.addLine("// $conditionName")
+        visitor.add("if ($expression) {")
+        visitor.newLine()
+        action.accept(visitor)
+        visitor.add("}")
+        visitor.newLine()
     }
-
 }

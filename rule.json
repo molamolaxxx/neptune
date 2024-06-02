@@ -5,14 +5,14 @@
       "subRuleName": "测试子规则1#数字比较",
       "subRuleCode": "sub_rule1",
       "param": {
-        "type": "int",
+        "type": "Number",
         "code": "input.param1"
       },
-      "matchMethod": ">=",
+      "matchMethod": "leftGreaterOrEqualRight",
       "value": [
         {
-          "type": "int",
-          "value": 1
+          "type": "Number",
+          "value": 0.79
         }
       ]
     },
@@ -23,7 +23,7 @@
         "type": "String",
         "code": "input.param2"
       },
-      "matchMethod": "contains|all",
+      "matchMethod": "stringContains|any",
       "value": [
         {
           "type": "String",
@@ -42,7 +42,7 @@
         "type": "Date",
         "code": "input.date1"
       },
-      "matchMethod": "after|all",
+      "matchMethod": "dateAfter|all",
       "value": [
         {
           "type": "Date",

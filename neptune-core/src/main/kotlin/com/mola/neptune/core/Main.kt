@@ -31,8 +31,8 @@ fun buildReq(): NeptuneRequest {
     val request = NeptuneRequest()
     request.ruleName = "测试规则1"
     val inputMap: MutableMap<String, Any> = mutableMapOf()
-    inputMap["param1"] = 3
-    inputMap["param2"] = "check it out"
+    inputMap["param1"] = 0.8
+    inputMap["param2"] = "hello"
     inputMap["date1"] = Date()
     inputMap["param4"] = ""
     val dataSource: MutableMap<String, Any> = mutableMapOf()

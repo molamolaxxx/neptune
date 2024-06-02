@@ -18,26 +18,25 @@ class RuleConfig : RuleParts{
 
     lateinit var conditions: List<RuleCondition>
 
-    override fun accept(ruleVisitor: NeptuneRulePartVisitor) {
+    override fun accept(visitor: NeptuneRulePartVisitor) {
         // 导入
-        ruleVisitor.addLine("// rule engine :$ruleName")
-        ruleVisitor.addLine("import com.mola.neptune.client.NeptuneResult")
-        ruleVisitor.addLine("import com.mola.neptune.core.function.NeptuneFunctions")
-        ruleVisitor.addLine("import com.mola.neptune.client.RuleContext")
-        ruleVisitor.newLine()
+        visitor.addLine("// rule engine :$ruleName")
+        visitor.addLine("import com.mola.neptune.client.NeptuneResult")
+        visitor.addLine("import com.mola.neptune.core.function.NeptuneFunctions")
+        visitor.addLine("import com.mola.neptune.client.RuleContext")
+        visitor.newLine()
 
-        ruleVisitor.addLine("// 初始化上下文")
-        ruleVisitor.addLine("def ctx = new RuleContext()")
-        ruleVisitor.newLine()
-        for (subRule in subRules!!) {
-            subRule.accept(ruleVisitor)
+        visitor.addLine("// 初始化上下文")
+        visitor.addLine("def ctx = new RuleContext()")
+        visitor.newLine()
+        for (subRule in subRules) {
+            subRule.accept(visitor)
         }
-        ruleVisitor.newLine()
-        for (condition in conditions!!) {
-            condition.accept(ruleVisitor)
+        visitor.newLine()
+        for (condition in conditions) {
+            condition.accept(visitor)
         }
-        ruleVisitor.newLine()
-        ruleVisitor.addLine("return new NeptuneResult(ctx)")
+        visitor.newLine()
+        visitor.addLine("return new NeptuneResult(ctx)")
     }
-
 }
