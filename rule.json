@@ -49,9 +49,37 @@
           "value": "1717268073904"
         }
       ]
+    },
+    {
+      "subRuleName": "测试子规则4#动态数据源",
+      "subRuleCode": "sub_rule4",
+      "param": {
+        "type": "String",
+        "code": "input.dynamicParam"
+      },
+      "matchMethod": "inDataSource",
+      "value": [
+        {
+          "type": "Dynamic",
+          "dataSource": {
+            "type": "redis",
+            "db": "test_db",
+            "tb": "test_tb",
+            "where": "a = 1 and b = 2"
+          }
+        }
+      ]
     }
   ],
   "conditions" : [
+    {
+      "conditionName": "条件3#返回",
+      "expression": "sub_rule4",
+      "action": {
+        "type": "return",
+        "content": "条件3匹配成功"
+      }
+    },
     {
       "conditionName": "条件1#返回",
       "expression": "sub_rule3",

@@ -11,5 +11,6 @@ enum class NeptuneDataTypeEnum(val code: String, val desc: String) {
 
     STRING("String", "字符串"),
     NUMBER("Number","数字类型"),
-    DATE("Date", "日期")
+    DATE("Date", "日期"),
+    DYNAMIC("Dynamic", "动态数据源")
 }

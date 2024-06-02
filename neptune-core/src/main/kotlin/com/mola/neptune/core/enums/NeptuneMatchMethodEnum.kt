@@ -21,7 +21,9 @@ enum class NeptuneMatchMethodEnum(val code: String, val desc: String) {
 
     LEFT_LESS_THAN_RIGHT("leftGreaterThanRight", "小于"),
 
-    LEFT_LESS_OR_EQUAL_RIGHT("leftGreaterOrEqualRight", "小于等于");
+    LEFT_LESS_OR_EQUAL_RIGHT("leftGreaterOrEqualRight", "小于等于"),
+
+    IN_DATA_SOURCE("inDataSource", "在动态数据源中");
 
     companion object {
         fun getByCode(code: String): NeptuneMatchMethodEnum? {

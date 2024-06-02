@@ -29,6 +29,10 @@ class SubRuleValue : RuleParts{
             visitor.addTemp("new Date($value)")
             return
         }
+        if (type == NeptuneDataTypeEnum.DYNAMIC.code) {
+            dataSource.accept(visitor)
+            return
+        }
         throw RuntimeException("unknown value data type : $type")
     }
 }

@@ -4,6 +4,7 @@ import com.mola.neptune.client.RuleContext;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author : molamola
@@ -97,6 +98,18 @@ public class NeptuneMatchFunctions {
         boolean result = leftBd.compareTo(rightBd) <= 0;
         ruleContext.addSubRuleLog(String.format(
                 "[leftLessOrEqualRight] %s execute, left = %s, right = %s, result = %s",ruleCode, left, right, result));
+        return result;
+    }
+
+    public static boolean inDataSource(String left, List<String> dataSource,
+                                               RuleContext ruleContext, String ruleCode) {
+        if (left == null || dataSource == null) {
+            return false;
+        }
+        boolean result = dataSource.contains(left);
+        ruleContext.addSubRuleLog(String.format(
+                "[inDataSource] %s execute, left = %s, dataSource = %s, result = %s",
+                ruleCode, left, dataSource, result));
         return result;
     }
 }
