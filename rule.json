@@ -54,7 +54,7 @@
   "conditions" : [
     {
       "conditionName": "条件1#返回",
-      "expression": "sub_rule2",
+      "expression": "sub_rule3",
       "action": {
         "type": "return",
         "content": "条件1匹配成功"

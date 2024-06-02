@@ -67,6 +67,6 @@ class SubRule: RuleParts {
         val methodEnum: NeptuneMatchMethodEnum = NeptuneMatchMethodEnum.getByCode(matchMethodCode)
             ?: throw RuntimeException("unknown match method: $matchMethodCode")
 
-        return "NeptuneFunctions.${methodEnum.code}($paramTemp, $valueTemp, ctx, '$subRuleCode')"
+        return "NeptuneMatchFunctions.${methodEnum.code}($paramTemp, $valueTemp, ctx, '$subRuleCode')"
     }
 }

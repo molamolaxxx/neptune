@@ -11,7 +11,7 @@ import java.util.Date;
  * @Description:
  * @date : 2024-06-02 12:53
  **/
-public class NeptuneFunctions {
+public class NeptuneMatchFunctions {
 
     public static boolean stringContains(String left, String right,
                                             RuleContext ruleContext, String ruleCode) {
