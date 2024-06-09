@@ -1,8 +1,6 @@
 package com.mola.neptune.core.entity
 
-import com.mola.neptune.core.enums.NeptuneDataTypeEnum
-import com.mola.neptune.core.parser.NeptuneRulePartVisitor
-import com.mola.neptune.core.parser.RuleParts
+import com.mola.neptune.core.parser.RuleNode
 
 
 /**
@@ -11,28 +9,11 @@ import com.mola.neptune.core.parser.RuleParts
  * @author : molamola
  * @date : 2024-06-02 11:44
  **/
-class SubRuleValue : RuleParts{
+class SubRuleValue : RuleNode() {
 
-    lateinit var type: String
+    var type: String? = null
 
-    lateinit var value: String
+    var value: String? = null
 
-    lateinit var dataSource: RuleDataSource
-
-    override fun accept(visitor: NeptuneRulePartVisitor) {
-        if (type == NeptuneDataTypeEnum.STRING.code ||
-            type == NeptuneDataTypeEnum.NUMBER.code) {
-            visitor.addTemp("'$value'")
-            return
-        }
-        if (type == NeptuneDataTypeEnum.DATE.code) {
-            visitor.addTemp("new Date($value)")
-            return
-        }
-        if (type == NeptuneDataTypeEnum.DYNAMIC.code) {
-            dataSource.accept(visitor)
-            return
-        }
-        throw RuntimeException("unknown value data type : $type")
-    }
+    var dataSource: RuleDataSource? = null
 }

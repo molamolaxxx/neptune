@@ -1,7 +1,6 @@
 package com.mola.neptune.core.entity
 
-import com.mola.neptune.core.parser.NeptuneRulePartVisitor
-import com.mola.neptune.core.parser.RuleParts
+import com.mola.neptune.core.parser.RuleNode
 
 
 /**
@@ -10,17 +9,11 @@ import com.mola.neptune.core.parser.RuleParts
  * @author : molamola
  * @date : 2024-06-02 11:36
  **/
-class RuleAction: RuleParts {
+class RuleAction: RuleNode() {
 
-    lateinit var type: String
+    var type: String? = null
 
-    lateinit var content: String
+    var content: String? = null
 
-    lateinit var method: String
-
-    override fun accept(visitor: NeptuneRulePartVisitor) {
-        if (type == "return") {
-            visitor.addLine("\treturn new NeptuneResult('${content}', ctx)")
-        }
-    }
+    var method: String? = null
 }

@@ -1,9 +1,6 @@
 package com.mola.neptune.core.entity
 
-import com.alibaba.fastjson.JSON
-import com.mola.neptune.core.enums.DataSourceTypeEnum
-import com.mola.neptune.core.parser.NeptuneRulePartVisitor
-import com.mola.neptune.core.parser.RuleParts
+import com.mola.neptune.core.parser.RuleNode
 
 
 /**
@@ -12,29 +9,15 @@ import com.mola.neptune.core.parser.RuleParts
  * @author : molamola
  * @date : 2024-06-02 11:45
  **/
-class RuleDataSource: RuleParts {
+class RuleDataSource: RuleNode() {
 
-    lateinit var type: String
+    var type: String? = null
 
-    lateinit var db: String
+    var db: String? = null
 
-    lateinit var tb: String
+    var tb: String? = null
 
-    lateinit var col: String
+    var col: String? = null
 
-    lateinit var where: List<String>
-
-    override fun accept(visitor: NeptuneRulePartVisitor) {
-        if (type == DataSourceTypeEnum.MYSQL.code) {
-            visitor.addTemp("NeptuneDataSourceFunctions" +
-                    ".fetchFromMysql('$db', '$tb','$col', ${JSON.toJSONString(where)})")
-            return
-        }
-        if (type == DataSourceTypeEnum.REDIS.code) {
-            visitor.addTemp("NeptuneDataSourceFunctions" +
-                    ".fetchFromRedis('$db', ${JSON.toJSONString(where)})")
-            return
-        }
-        throw RuntimeException("un support dataSource, type = $type")
-    }
+    var where: List<String>? = null
 }
