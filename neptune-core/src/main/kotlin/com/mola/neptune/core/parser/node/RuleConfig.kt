@@ -1,6 +1,4 @@
-package com.mola.neptune.core.entity
-
-import com.mola.neptune.core.parser.RuleNode
+package com.mola.neptune.core.parser.node
 
 
 /**

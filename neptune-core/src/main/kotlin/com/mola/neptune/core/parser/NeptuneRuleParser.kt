@@ -1,7 +1,7 @@
 package com.mola.neptune.core.parser
 
 import com.alibaba.fastjson.JSON
-import com.mola.neptune.core.entity.RuleConfig
+import com.mola.neptune.core.parser.node.RuleConfig
 import com.mola.neptune.core.enums.RuleTargetLangEnum
 
 

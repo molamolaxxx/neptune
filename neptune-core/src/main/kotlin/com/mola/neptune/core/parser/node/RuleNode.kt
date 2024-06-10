@@ -1,9 +1,9 @@
-package com.mola.neptune.core.parser
+package com.mola.neptune.core.parser.node
 
-import com.mola.neptune.core.entity.*
 import com.mola.neptune.core.enums.RuleTargetLangEnum
-import com.mola.neptune.core.generator.RuleGenerator
-import com.mola.neptune.core.generator.groovy.*
+import com.mola.neptune.core.parser.generator.RuleGenerator
+import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.generator.groovy.*
 import kotlin.reflect.KClass
 
 

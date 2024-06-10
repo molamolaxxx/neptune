@@ -14,7 +14,6 @@ import java.util.concurrent.Future
 import kotlin.random.Random
 
 fun main() {
-
     // 加载规则
     val ruleJson: String = try {
         String(Files.readAllBytes(Paths.get("rule.json")))
@@ -29,7 +28,7 @@ fun main() {
     val executor = Executors.newFixedThreadPool(8)
 
     val list = mutableListOf<Future<Any>>()
-    for (i in 1..100) {
+    for (i in 1..10000) {
         val future = executor.submit<Any> {
             val start = System.currentTimeMillis()
             val buildReq = buildReq()

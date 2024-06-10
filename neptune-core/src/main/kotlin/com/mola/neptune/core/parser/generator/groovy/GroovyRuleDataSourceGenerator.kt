@@ -1,9 +1,9 @@
-package com.mola.neptune.core.generator.groovy
+package com.mola.neptune.core.parser.generator.groovy
 
 import com.alibaba.fastjson.JSON
-import com.mola.neptune.core.entity.RuleDataSource
+import com.mola.neptune.core.parser.node.RuleDataSource
 import com.mola.neptune.core.enums.DataSourceTypeEnum
-import com.mola.neptune.core.generator.RuleGenerator
+import com.mola.neptune.core.parser.generator.RuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 
 

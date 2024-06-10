@@ -1,7 +1,7 @@
-package com.mola.neptune.core.generator.groovy
+package com.mola.neptune.core.parser.generator.groovy
 
-import com.mola.neptune.core.entity.RuleAction
-import com.mola.neptune.core.generator.RuleGenerator
+import com.mola.neptune.core.parser.node.RuleAction
+import com.mola.neptune.core.parser.generator.RuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 
 

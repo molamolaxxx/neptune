@@ -1,7 +1,7 @@
-package com.mola.neptune.core.generator.base
+package com.mola.neptune.core.parser.generator.base
 
-import com.mola.neptune.core.entity.SubRule
-import com.mola.neptune.core.generator.RuleGenerator
+import com.mola.neptune.core.parser.node.SubRule
+import com.mola.neptune.core.parser.generator.RuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 
 

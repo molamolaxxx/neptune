@@ -1,8 +1,8 @@
-package com.mola.neptune.core.generator.groovy
+package com.mola.neptune.core.parser.generator.groovy
 
-import com.mola.neptune.core.entity.SubRule
+import com.mola.neptune.core.parser.node.SubRule
 import com.mola.neptune.core.enums.NeptuneMatchMethodEnum
-import com.mola.neptune.core.generator.base.SubRuleGenerator
+import com.mola.neptune.core.parser.generator.base.SubRuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 
 

@@ -1,6 +1,6 @@
 package com.mola.neptune.core.core
 
-import com.mola.neptune.core.entity.RuleConfig
+import com.mola.neptune.core.parser.node.RuleConfig
 import com.mola.neptune.core.enums.RuleTargetLangEnum
 import com.mola.neptune.core.parser.NeptuneRuleParser
 
