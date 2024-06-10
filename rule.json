@@ -12,7 +12,7 @@
       "value": [
         {
           "type": "Number",
-          "value": 0.79
+          "value": 1
         }
       ]
     },
@@ -46,7 +46,7 @@
       "value": [
         {
           "type": "Date",
-          "value": "1717268073904"
+          "value": "1817268073904"
         }
       ]
     },
@@ -91,7 +91,7 @@
     },
     {
       "conditionName": "条件2#返回",
-      "expression": "sub_rule1 && sub_rule3",
+      "expression": "sub_rule1",
       "action": {
         "type": "return",
         "content": "条件2匹配成功"

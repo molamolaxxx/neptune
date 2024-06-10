@@ -4,6 +4,7 @@ import com.mola.neptune.core.entity.*
 import com.mola.neptune.core.enums.RuleTargetLangEnum
 import com.mola.neptune.core.generator.RuleGenerator
 import com.mola.neptune.core.generator.groovy.*
+import kotlin.reflect.KClass
 
 
 /**
@@ -16,15 +17,15 @@ abstract class RuleNode {
 
     companion object {
         private val groovyRuleGeneratorMap :
-                MutableMap<Class<out RuleNode>, RuleGenerator<RuleNode>> = mutableMapOf()
+                MutableMap<KClass<out RuleNode>, RuleGenerator<RuleNode>> = mutableMapOf()
         init {
-            groovyRuleGeneratorMap[RuleConfig::class.java] = GroovyRuleConfigGenerator()
-            groovyRuleGeneratorMap[RuleAction::class.java] = GroovyRuleActionGenerator()
-            groovyRuleGeneratorMap[RuleCondition::class.java] = GroovyRuleConditionGenerator()
-            groovyRuleGeneratorMap[RuleDataSource::class.java] = GroovyRuleDataSourceGenerator()
-            groovyRuleGeneratorMap[SubRule::class.java] = GroovySubRuleGenerator()
-            groovyRuleGeneratorMap[SubRuleParam::class.java] = GroovySubRuleParamGenerator()
-            groovyRuleGeneratorMap[SubRuleValue::class.java] = GroovySubRuleValueGenerator()
+            groovyRuleGeneratorMap[RuleConfig::class] = GroovyRuleConfigGenerator()
+            groovyRuleGeneratorMap[RuleAction::class] = GroovyRuleActionGenerator()
+            groovyRuleGeneratorMap[RuleCondition::class] = GroovyRuleConditionGenerator()
+            groovyRuleGeneratorMap[RuleDataSource::class] = GroovyRuleDataSourceGenerator()
+            groovyRuleGeneratorMap[SubRule::class] = GroovySubRuleGenerator()
+            groovyRuleGeneratorMap[SubRuleParam::class] = GroovySubRuleParamGenerator()
+            groovyRuleGeneratorMap[SubRuleValue::class] = GroovySubRuleValueGenerator()
         }
     }
 
@@ -33,8 +34,8 @@ abstract class RuleNode {
      */
     fun accept(visitor: NeptuneRulePartVisitor) {
         var ruleGenerator: RuleGenerator<RuleNode>? = null
-        if (visitor.getTargetLangType() == RuleTargetLangEnum.GROOVY) {
-            ruleGenerator = groovyRuleGeneratorMap[this::class.java]
+        if (visitor.ruleTargetLangEnum == RuleTargetLangEnum.GROOVY) {
+            ruleGenerator = groovyRuleGeneratorMap[this::class]
         }
         ruleGenerator?.generate(this, visitor)
     }

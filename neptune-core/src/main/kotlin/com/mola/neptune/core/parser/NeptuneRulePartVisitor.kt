@@ -15,14 +15,10 @@ class NeptuneRulePartVisitor {
 
     private var tempBuffer = StringBuilder()
 
-    private var ruleTargetLangEnum: RuleTargetLangEnum = RuleTargetLangEnum.GROOVY
+    var ruleTargetLangEnum: RuleTargetLangEnum = RuleTargetLangEnum.GROOVY
 
     fun getTargetLang(): String {
         return targetLangBuf.toString()
-    }
-
-    fun getTargetLangType(): RuleTargetLangEnum {
-        return ruleTargetLangEnum
     }
 
     fun addLine(line: String) {

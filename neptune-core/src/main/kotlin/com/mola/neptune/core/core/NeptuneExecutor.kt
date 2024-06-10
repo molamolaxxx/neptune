@@ -18,15 +18,11 @@ import javax.script.SimpleBindings
  **/
 object NeptuneExecutor {
 
-    private val threadLocal: ThreadLocal<ScriptEngine> = ThreadLocal.withInitial {
-        val manager = ScriptEngineManager()
-        return@withInitial manager.getEngineByName("groovy")
-    }
     private val ruleExecuteExecutor: ThreadPoolExecutor = ThreadPoolExecutor(20, 100
         , 200, TimeUnit.MILLISECONDS, ArrayBlockingQueue(1024), object : ThreadFactory {
         private val threadIndex = AtomicInteger(0)
         override fun newThread(r: Runnable): Thread {
-            return Thread(r, String.format("neptune-execute-thread-%d", threadIndex.incrementAndGet()))
+            return NeptuneExecThread(r, threadIndex.incrementAndGet())
         }
     }, CallerRunsPolicy())
 
@@ -41,16 +37,10 @@ object NeptuneExecutor {
 
             val script = NeptuneRuleLoader.getScript(neptuneRequest.ruleName!!)
 
-            // 创建 Bindings 对象并设置 input 参数
-            val bindings: Bindings = SimpleBindings()
-            for (key in neptuneRequest.paramMap.keys) {
-                bindings[key] = neptuneRequest.paramMap[key]
-            }
-
             try {
-                return@submit threadLocal.get().eval(script, bindings) as NeptuneResult
+                return@submit NeptuneScriptEngine.instance.eval(script!!, neptuneRequest.paramMap)
             } catch (e: Exception) {
-                throw java.lang.RuntimeException(e)
+                throw RuntimeException(e)
             }
         }
         return future.get() as NeptuneResult
@@ -59,4 +49,7 @@ object NeptuneExecutor {
     fun shutdown() {
         ruleExecuteExecutor.shutdown()
     }
+
+    class NeptuneExecThread(target: Runnable?, idx: Int?) :
+        Thread(target, "neptune-execute-thread-${idx}")
 }

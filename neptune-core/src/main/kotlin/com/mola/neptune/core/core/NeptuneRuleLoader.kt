@@ -1,6 +1,7 @@
 package com.mola.neptune.core.core
 
 import com.mola.neptune.core.entity.RuleConfig
+import com.mola.neptune.core.enums.RuleTargetLangEnum
 import com.mola.neptune.core.parser.NeptuneRuleParser
 
 /**
@@ -15,10 +16,19 @@ object NeptuneRuleLoader {
 
     fun loadRule(ruleName: String, ruleDsl: String) {
         val ruleParser = NeptuneRuleParser()
+        // 加载dsl
         val ruleConfig: RuleConfig = ruleParser.parseConfig(ruleDsl)
-        val script = ruleParser.transfer2Groovy(ruleConfig)
-        println("ruleName: $ruleName, loadScript:")
-        println(script)
+        println("ruleName: $ruleName  dsl parsed")
+
+        // 编译成targetLang
+        val script = ruleParser.parseToTargetLang(ruleConfig, RuleTargetLangEnum.GROOVY)
+        println("ruleName: $ruleName  target lang parsed : \n $script")
+
+        // 编译targetLang
+        NeptuneScriptEngine.initEngine(RuleTargetLangEnum.GROOVY)
+        NeptuneScriptEngine.instance.preCompile(script)
+        println("ruleName: $ruleName  target lang preCompiled")
+
         ruleScriptMap[ruleName] = script
     }
 
