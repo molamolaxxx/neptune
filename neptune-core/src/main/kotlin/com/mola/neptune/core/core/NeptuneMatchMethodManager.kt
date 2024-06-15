@@ -32,6 +32,14 @@ object NeptuneMatchMethodManager {
         }
         return matchedMapping != null
     }
+
+    fun find(paramType: String?, matchMethod: String?, valueType: String?): List<MatchMethodMapping> {
+        return matchMethodList.filter { mapping ->
+            (paramType == null || mapping.paramType == DataTypeEnum.getByCode(paramType))&&
+            (valueType == null || mapping.valueType == DataTypeEnum.getByCode(valueType)) &&
+            (matchMethod == null || mapping.matchMethod == MatchMethodEnum.getByCode(matchMethod))
+        }
+    }
 }
 
 data class MatchMethodMapping(

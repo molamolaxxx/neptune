@@ -53,8 +53,8 @@ abstract class SubRuleGenerator : RuleGenerator<SubRule> {
             if (!NeptuneMatchMethodManager.match(
                     node.param.type, node.matchMethod, subRuleValue.type)) {
                 throw RuntimeException("subRule `${node.subRuleName}` invalid, " +
-                        "method `${node.matchMethod}` not match, given left = ${node.param.type}" +
-                        " right = ${subRuleValue.type}")
+                        "method `${node.matchMethod}` not match, given left = ${node.param.type} right = ${subRuleValue.type}, " +
+                        "expect = ${NeptuneMatchMethodManager.find(null, node.matchMethod, null)}")
             }
         }
     }
