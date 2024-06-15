@@ -1,8 +1,9 @@
 package com.mola.neptune.core.parser.generator.groovy
 
-import com.mola.neptune.core.parser.node.RuleAction
+import com.mola.neptune.core.enums.ActionTypeEnum
 import com.mola.neptune.core.parser.generator.RuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.node.RuleAction
 
 
 /**
@@ -14,8 +15,8 @@ import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 class GroovyRuleActionGenerator : RuleGenerator<RuleAction> {
 
     override fun generate(node: RuleAction, visitor: NeptuneRulePartVisitor) {
-        if (node.type == "return") {
-            visitor.addLine("\treturn new NeptuneResult('${node.content}', ctx)")
+        if (ActionTypeEnum.RETURN.match(node.type)) {
+            visitor.addLine("return new NeptuneResult('${node.content}', ctx)")
         }
     }
 }

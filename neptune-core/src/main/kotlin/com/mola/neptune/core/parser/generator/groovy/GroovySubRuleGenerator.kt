@@ -1,9 +1,9 @@
 package com.mola.neptune.core.parser.generator.groovy
 
-import com.mola.neptune.core.parser.node.SubRule
-import com.mola.neptune.core.enums.NeptuneMatchMethodEnum
+import com.mola.neptune.core.enums.MatchMethodEnum
 import com.mola.neptune.core.parser.generator.base.SubRuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.node.SubRule
 
 
 /**
@@ -25,11 +25,8 @@ class GroovySubRuleGenerator : SubRuleGenerator() {
     override fun connectParamAndValue(
         matchMethod: String, paramTemp: String, valueTemp: String, subRuleCode: String
     ): String {
-        // 解析matchMethod
-        val split = matchMethod.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val matchMethodCode = split[0]
-        val methodEnum: NeptuneMatchMethodEnum = NeptuneMatchMethodEnum.getByCode(matchMethodCode)
-            ?: throw RuntimeException("unknown match method: $matchMethodCode")
+        val methodEnum: MatchMethodEnum = MatchMethodEnum.getByCode(matchMethod)
+            ?: throw RuntimeException("unknown match method: $matchMethod")
 
         return "NeptuneMatchFunctions.${methodEnum.code}($paramTemp, $valueTemp, ctx, '$subRuleCode')"
     }

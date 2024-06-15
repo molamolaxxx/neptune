@@ -1,7 +1,7 @@
 package com.mola.neptune.core.parser.generator
 
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
-import com.mola.neptune.core.parser.node.RuleNode
+import com.mola.neptune.core.parser.node.NeptuneRuleNode
 
 
 /**
@@ -10,7 +10,7 @@ import com.mola.neptune.core.parser.node.RuleNode
  * @author : molamola
  * @date : 2024-06-09 23:10
  **/
-interface RuleGenerator<out T : RuleNode> {
+interface RuleGenerator<out T : NeptuneRuleNode> {
 
     /**
      * 接受visitor的访问，生成target代码

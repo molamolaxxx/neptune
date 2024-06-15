@@ -28,7 +28,7 @@ fun main() {
     val executor = Executors.newFixedThreadPool(8)
 
     val list = mutableListOf<Future<Any>>()
-    for (i in 1..10000) {
+    for (i in 1..500) {
         val future = executor.submit<Any> {
             val start = System.currentTimeMillis()
             val buildReq = buildReq()
@@ -54,6 +54,8 @@ fun buildReq(): NeptuneRequest {
     inputMap["param2"] = "hello"
     inputMap["date1"] = Date()
     inputMap["param4"] = ""
+    inputMap["dynamicParam"] = "b"
+    inputMap["inputList"] = listOf("str")
     val dataSource: MutableMap<String, Any> = mutableMapOf()
     dataSource["input"] = inputMap
     request.paramMap = dataSource

@@ -30,6 +30,10 @@ class NeptuneRulePartVisitor {
         targetLangBuf.append("\n")
     }
 
+    fun newTab() {
+        targetLangBuf.append("\t")
+    }
+
     fun add(part: String) {
         targetLangBuf.append(part)
     }

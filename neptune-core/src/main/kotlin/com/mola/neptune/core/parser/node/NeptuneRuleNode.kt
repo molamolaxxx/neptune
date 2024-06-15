@@ -13,11 +13,11 @@ import kotlin.reflect.KClass
  * @author : molamola
  * @date : 2024-06-02 11:33
  **/
-abstract class RuleNode {
+abstract class NeptuneRuleNode {
 
     companion object {
         private val groovyRuleGeneratorMap :
-                MutableMap<KClass<out RuleNode>, RuleGenerator<RuleNode>> = mutableMapOf()
+                MutableMap<KClass<out NeptuneRuleNode>, RuleGenerator<NeptuneRuleNode>> = mutableMapOf()
         init {
             groovyRuleGeneratorMap[RuleConfig::class] = GroovyRuleConfigGenerator()
             groovyRuleGeneratorMap[RuleAction::class] = GroovyRuleActionGenerator()
@@ -33,7 +33,7 @@ abstract class RuleNode {
      * 接受访问
      */
     fun accept(visitor: NeptuneRulePartVisitor) {
-        var ruleGenerator: RuleGenerator<RuleNode>? = null
+        var ruleGenerator: RuleGenerator<NeptuneRuleNode>? = null
         if (visitor.ruleTargetLangEnum == RuleTargetLangEnum.GROOVY) {
             ruleGenerator = groovyRuleGeneratorMap[this::class]
         }

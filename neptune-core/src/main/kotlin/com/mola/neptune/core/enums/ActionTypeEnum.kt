@@ -7,11 +7,9 @@ package com.mola.neptune.core.enums
  * @author : molamola
  * @date : 2024-06-02 16:05
  **/
-enum class DataSourceTypeEnum(val code: String, val desc: String) {
+enum class ActionTypeEnum(val code: String, val desc: String) {
 
-    MYSQL("mysql", "Mysql数据库"),
-
-    REDIS("redis", "Redis数据库");
+    RETURN("return", "返回值"),;
 
     fun match(code: String) : Boolean{
         return this.code == code

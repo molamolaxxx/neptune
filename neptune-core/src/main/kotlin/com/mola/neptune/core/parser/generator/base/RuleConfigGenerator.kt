@@ -1,10 +1,10 @@
 package com.mola.neptune.core.parser.generator.base
 
 import com.mola.neptune.core.parser.generator.RuleGenerator
+import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 import com.mola.neptune.core.parser.node.RuleCondition
 import com.mola.neptune.core.parser.node.RuleConfig
 import com.mola.neptune.core.parser.node.SubRule
-import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 import kotlin.streams.toList
 
 
@@ -31,7 +31,7 @@ abstract class RuleConfigGenerator : RuleGenerator<RuleConfig> {
         // 编排子规则和条件
         generateSubRuleAndCondition(node, visitor)
         // 返回默认结果
-        generateDefaultReturn(node, visitor)
+        generateDefaultAction(node, visitor)
     }
 
     /**
@@ -62,26 +62,26 @@ abstract class RuleConfigGenerator : RuleGenerator<RuleConfig> {
      */
     private fun generateSubRuleAndCondition(node: RuleConfig, visitor: NeptuneRulePartVisitor) {
         val conditionWithSubRule: MutableMap<RuleCondition, MutableList<SubRule>> = mutableMapOf()
-        for (condition in node.conditions!!) {
+        for (condition in node.conditions) {
             if (conditionWithSubRule[condition] == null) {
                 conditionWithSubRule[condition] = mutableListOf()
             }
             // 找到这个条件对应的表达式
             conditionWithSubRule[condition]!!.addAll(
-                node.subRules!!.stream().filter { subRule ->
-                    condition.expression!!.contains(subRule.subRuleCode!!)
+                node.subRules.stream().filter { subRule ->
+                    condition.expression.contains(subRule.subRuleCode)
                 }.toList()
             )
         }
 
         val alreadyParsedSubCondition: MutableSet<String> = mutableSetOf()
-        for (condition in node.conditions!!) {
+        for (condition in node.conditions) {
             for (subRule in conditionWithSubRule[condition]!!) {
                 if (alreadyParsedSubCondition.contains(subRule.subRuleCode)) {
                     continue
                 }
                 subRule.accept(visitor)
-                alreadyParsedSubCondition.add(subRule.subRuleCode!!)
+                alreadyParsedSubCondition.add(subRule.subRuleCode)
             }
             visitor.newLine()
             condition.accept(visitor)
@@ -89,5 +89,5 @@ abstract class RuleConfigGenerator : RuleGenerator<RuleConfig> {
         visitor.newLine()
     }
 
-    protected abstract fun generateDefaultReturn(node: RuleConfig, visitor: NeptuneRulePartVisitor)
+    protected abstract fun generateDefaultAction(node: RuleConfig, visitor: NeptuneRulePartVisitor)
 }

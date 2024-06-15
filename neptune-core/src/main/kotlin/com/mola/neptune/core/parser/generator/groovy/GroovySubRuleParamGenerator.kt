@@ -1,9 +1,9 @@
 package com.mola.neptune.core.parser.generator.groovy
 
-import com.mola.neptune.core.parser.node.SubRuleParam
-import com.mola.neptune.core.enums.NeptuneDataTypeEnum
-import com.mola.neptune.core.parser.generator.RuleGenerator
+import com.mola.neptune.core.enums.DataTypeEnum
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.generator.RuleGenerator
+import com.mola.neptune.core.parser.node.SubRuleParam
 
 
 /**
@@ -16,14 +16,15 @@ class GroovySubRuleParamGenerator : RuleGenerator<SubRuleParam> {
 
     override fun generate(node: SubRuleParam, visitor: NeptuneRulePartVisitor) {
         val type = node.type
-        val code = node.code!!
+        val code = node.code
 
-        if (type == NeptuneDataTypeEnum.NUMBER.code) {
+        if (DataTypeEnum.NUMBER.match(type)) {
             visitor.addTemp("String.valueOf($code)")
             return
         }
-        if (type == NeptuneDataTypeEnum.DATE.code
-            || type == NeptuneDataTypeEnum.STRING.code ) {
+        if (DataTypeEnum.DATE.match(type)
+            || DataTypeEnum.STRING.match(type)
+            || DataTypeEnum.LIST.match(type)) {
             visitor.addTemp(code)
             return
         }

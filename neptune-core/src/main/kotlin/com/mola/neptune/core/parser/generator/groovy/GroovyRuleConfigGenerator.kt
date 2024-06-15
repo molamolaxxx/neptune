@@ -1,8 +1,9 @@
 package com.mola.neptune.core.parser.generator.groovy
 
+import com.mola.neptune.core.enums.ActionTypeEnum
 import com.mola.neptune.core.parser.generator.base.RuleConfigGenerator
-import com.mola.neptune.core.parser.node.RuleConfig
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.node.RuleConfig
 
 
 /**
@@ -31,7 +32,12 @@ class GroovyRuleConfigGenerator : RuleConfigGenerator() {
         visitor.newLine()
     }
 
-    override fun generateDefaultReturn(node: RuleConfig, visitor: NeptuneRulePartVisitor) {
+    override fun generateDefaultAction(node: RuleConfig, visitor: NeptuneRulePartVisitor) {
+        val defaultAction = node.defaultAction
+        defaultAction.accept(visitor)
+        if (ActionTypeEnum.RETURN.match(defaultAction.type)) {
+            return
+        }
         visitor.addLine("return new NeptuneResult(ctx)")
     }
 }

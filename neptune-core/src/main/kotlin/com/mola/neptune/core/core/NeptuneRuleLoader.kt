@@ -1,8 +1,8 @@
 package com.mola.neptune.core.core
 
-import com.mola.neptune.core.parser.node.RuleConfig
 import com.mola.neptune.core.enums.RuleTargetLangEnum
 import com.mola.neptune.core.parser.NeptuneRuleParser
+import com.mola.neptune.core.parser.node.RuleConfig
 
 /**
  * @Project: neptune

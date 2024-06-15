@@ -101,15 +101,27 @@ public class NeptuneMatchFunctions {
         return result;
     }
 
-    public static boolean inDataSource(String left, List<String> dataSource,
+    public static boolean inList(String left, List<String> right,
                                                RuleContext ruleContext, String ruleCode) {
-        if (left == null || dataSource == null) {
+        if (left == null || right == null) {
             return false;
         }
-        boolean result = dataSource.contains(left);
+        boolean result = right.contains(left);
         ruleContext.addSubRuleLog(String.format(
-                "[inDataSource] %s execute, left = %s, dataSource = %s, result = %s",
-                ruleCode, left, dataSource, result));
+                "[inList] %s execute, left = %s, right = %s, result = %s",
+                ruleCode, left, right, result));
+        return result;
+    }
+
+    public static boolean contains(List<String> left, String right,
+                                 RuleContext ruleContext, String ruleCode) {
+        if (left == null || right == null) {
+            return false;
+        }
+        boolean result = left.contains(right);
+        ruleContext.addSubRuleLog(String.format(
+                "[contains] %s execute, left = %s, right = %s, result = %s",
+                ruleCode, left, right, result));
         return result;
     }
 }

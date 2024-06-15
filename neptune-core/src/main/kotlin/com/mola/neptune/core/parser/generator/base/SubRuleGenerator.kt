@@ -1,8 +1,9 @@
 package com.mola.neptune.core.parser.generator.base
 
-import com.mola.neptune.core.parser.node.SubRule
+import com.mola.neptune.core.core.NeptuneMatchMethodManager
 import com.mola.neptune.core.parser.generator.RuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.node.SubRule
 
 
 /**
@@ -14,24 +15,27 @@ import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 abstract class SubRuleGenerator : RuleGenerator<SubRule> {
 
     override fun generate(node: SubRule, visitor: NeptuneRulePartVisitor) {
+        // 校验子规则合法
+        validate(node)
+
         // 声明子规则
         generateSubRuleDescription(node, visitor)
 
         // 解析param
-        node.param!!.accept(visitor)
+        node.param.accept(visitor)
         val paramTemp: String = visitor.getTemp()
 
         // 解析value
         val paramAndValues: MutableList<String> = mutableListOf()
-        for (ruleValue in node.value!!) {
+        for (ruleValue in node.value) {
             ruleValue.accept(visitor)
             val valueTemp: String = visitor.getTemp()
             // 连接表达式入参与值，生成pv
             paramAndValues.add(
                 connectParamAndValue(
-                    node.matchMethod!!,
+                    node.matchMethod,
                     paramTemp, valueTemp,
-                    node.subRuleCode!!
+                    node.subRuleCode
                 )
             )
         }
@@ -41,13 +45,18 @@ abstract class SubRuleGenerator : RuleGenerator<SubRule> {
     }
 
     protected fun matchAll(node: SubRule): Boolean {
-        // 解析matchMethod
-        val split = node.matchMethod!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        var matchAll = true
-        if (split.size == 2 && split[1] == "any") {
-            matchAll = false
+        return node.matchCondition == "all" || node.matchCondition == null
+    }
+
+    private fun validate(node: SubRule) {
+        for (subRuleValue in node.value) {
+            if (!NeptuneMatchMethodManager.match(
+                    node.param.type, node.matchMethod, subRuleValue.type)) {
+                throw RuntimeException("subRule `${node.subRuleName}` invalid, " +
+                        "method `${node.matchMethod}` not match, given left = ${node.param.type}" +
+                        " right = ${subRuleValue.type}")
+            }
         }
-        return matchAll
     }
 
     abstract fun connectParamAndValue(

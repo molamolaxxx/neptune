@@ -1,10 +1,10 @@
 package com.mola.neptune.core.parser.generator.groovy
 
 import com.alibaba.fastjson.JSON
-import com.mola.neptune.core.parser.node.RuleDataSource
 import com.mola.neptune.core.enums.DataSourceTypeEnum
 import com.mola.neptune.core.parser.generator.RuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.node.RuleDataSource
 
 
 /**
@@ -16,13 +16,13 @@ import com.mola.neptune.core.parser.NeptuneRulePartVisitor
 class GroovyRuleDataSourceGenerator : RuleGenerator<RuleDataSource> {
 
     override fun generate(node: RuleDataSource, visitor: NeptuneRulePartVisitor) {
-        if (node.type == DataSourceTypeEnum.MYSQL.code) {
+        if (DataSourceTypeEnum.MYSQL.match(node.type)) {
             visitor.addTemp("NeptuneDataSourceFunctions" +
                     ".fetchFromMysql('${node.db}', '${node.tb}','${node.col}', " +
                     "${JSON.toJSONString(node.where)})")
             return
         }
-        if (node.type == DataSourceTypeEnum.REDIS.code) {
+        if (DataSourceTypeEnum.REDIS.match(node.type)) {
             visitor.addTemp("NeptuneDataSourceFunctions" +
                     ".fetchFromRedis('${node.db}', ${JSON.toJSONString(node.where)})")
             return

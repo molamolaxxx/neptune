@@ -11,5 +11,5 @@ enum class RuleTargetLangEnum(val code: String, val desc: String) {
 
     GROOVY("groovy", "groovy脚本"),
 
-    QL("ql", "ql表达式")
+    QL("ql", "ql表达式");
 }

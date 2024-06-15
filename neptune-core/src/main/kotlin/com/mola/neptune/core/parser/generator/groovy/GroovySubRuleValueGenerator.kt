@@ -1,9 +1,9 @@
 package com.mola.neptune.core.parser.generator.groovy
 
-import com.mola.neptune.core.parser.node.SubRuleValue
-import com.mola.neptune.core.enums.NeptuneDataTypeEnum
-import com.mola.neptune.core.parser.generator.RuleGenerator
+import com.mola.neptune.core.enums.DataTypeEnum
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.generator.RuleGenerator
+import com.mola.neptune.core.parser.node.SubRuleValue
 
 
 /**
@@ -18,18 +18,16 @@ class GroovySubRuleValueGenerator : RuleGenerator<SubRuleValue> {
         val type = node.type
         val value = node.value
 
-        if (type == NeptuneDataTypeEnum.STRING.code ||
-            type == NeptuneDataTypeEnum.NUMBER.code) {
+        if (DataTypeEnum.STRING.match(type) || DataTypeEnum.NUMBER.match(type)) {
             visitor.addTemp("'$value'")
             return
         }
-        if (type == NeptuneDataTypeEnum.DATE.code) {
+        if (DataTypeEnum.DATE.match(type)) {
             visitor.addTemp("new Date($value)")
             return
         }
-        if (type == NeptuneDataTypeEnum.DYNAMIC.code) {
-            val dataSource = node.dataSource
-            dataSource!!.accept(visitor)
+        if (DataTypeEnum.DYNAMIC.match(type)) {
+            node.dataSource.accept(visitor)
             return
         }
         throw RuntimeException("unknown value data type : $type")

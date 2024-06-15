@@ -23,7 +23,8 @@
         "type": "String",
         "code": "input.param2"
       },
-      "matchMethod": "stringContains|any",
+      "matchMethod": "stringContains",
+      "matchCondition": "any",
       "value": [
         {
           "type": "String",
@@ -42,7 +43,8 @@
         "type": "Date",
         "code": "input.date1"
       },
-      "matchMethod": "dateAfter|all",
+      "matchMethod": "dateAfter",
+      "matchCondition": "all",
       "value": [
         {
           "type": "Date",
@@ -57,7 +59,7 @@
         "type": "String",
         "code": "input.dynamicParam"
       },
-      "matchMethod": "inDataSource",
+      "matchMethod": "inList",
       "value": [
         {
           "type": "Dynamic",
@@ -70,9 +72,40 @@
           }
         }
       ]
+    },
+    {
+      "subRuleName": "测试子规则5#列表匹配",
+      "subRuleCode": "sub_rule5",
+      "param": {
+        "type": "List",
+        "code": "input.inputList"
+      },
+      "matchMethod": "contains",
+      "value": [
+        {
+          "type": "String",
+          "value": "str"
+        }
+      ]
     }
   ],
   "conditions" : [
+    {
+      "conditionName": "条件5 and 1#返回",
+      "expression": "sub_rule5 && sub_rule1",
+      "action": {
+        "type": "return",
+        "content": "条件5 and 1匹配成功"
+      }
+    },
+    {
+      "conditionName": "条件2#返回",
+      "expression": "sub_rule2",
+      "action": {
+        "type": "return",
+        "content": "条件2匹配成功"
+      }
+    },
     {
       "conditionName": "条件3#返回",
       "expression": "sub_rule4",
@@ -97,5 +130,9 @@
         "content": "条件2匹配成功"
       }
     }
-  ]
+  ],
+  "defaultAction" : {
+    "type": "return",
+    "content": "未命中任何条件"
+  }
 }

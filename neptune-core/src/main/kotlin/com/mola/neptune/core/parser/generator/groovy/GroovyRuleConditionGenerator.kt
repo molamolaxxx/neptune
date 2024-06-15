@@ -1,8 +1,8 @@
 package com.mola.neptune.core.parser.generator.groovy
 
-import com.mola.neptune.core.parser.node.RuleCondition
 import com.mola.neptune.core.parser.generator.RuleGenerator
 import com.mola.neptune.core.parser.NeptuneRulePartVisitor
+import com.mola.neptune.core.parser.node.RuleCondition
 
 
 /**
@@ -17,7 +17,8 @@ class GroovyRuleConditionGenerator : RuleGenerator<RuleCondition> {
         visitor.addLine("// ${node.conditionName}")
         visitor.add("if (${node.expression}) {")
         visitor.newLine()
-        node.action!!.accept(visitor)
+        visitor.newTab()
+        node.action.accept(visitor)
         visitor.add("}")
         visitor.newLine()
     }
