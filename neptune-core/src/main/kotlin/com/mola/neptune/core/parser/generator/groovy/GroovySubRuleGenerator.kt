@@ -30,13 +30,4 @@ class GroovySubRuleGenerator : SubRuleGenerator() {
 
         return "NeptuneMatchFunctions.${methodEnum.code}($paramTemp, $valueTemp, ctx, '$subRuleCode')"
     }
-
-    override fun connectAllParamAndValues(node: SubRule, visitor: NeptuneRulePartVisitor,
-                                          paramAndValues: MutableList<String>) {
-        if (matchAll(node)) {
-            visitor.add("(${paramAndValues.joinToString(" &&\n ")})")
-        } else {
-            visitor.add("(${paramAndValues.joinToString(" ||\n ")})")
-        }
-    }
 }

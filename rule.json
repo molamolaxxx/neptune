@@ -6,87 +6,75 @@
       "subRuleCode": "sub_rule1",
       "param": {
         "type": "Number",
-        "code": "input.param1"
+        "code": "input.param1",
+        "structure": "single"
       },
       "matchMethod": "leftGreaterOrEqualRight",
-      "value": [
-        {
+      "value": {
           "type": "Number",
-          "value": 1
-        }
-      ]
+          "value": "1",
+          "structure": "single"
+      }
     },
     {
       "subRuleName": "测试子规则2#字符串比较",
       "subRuleCode": "sub_rule2",
       "param": {
         "type": "String",
-        "code": "input.param2"
+        "code": "input.param2",
+        "structure": "single"
       },
       "matchMethod": "stringContains",
-      "matchCondition": "any",
-      "value": [
-        {
+      "value": {
           "type": "String",
-          "value": "hello"
-        },
-        {
-          "type": "String",
-          "value": "world"
-        }
-      ]
+          "value": "[\"hello\",\"world\"]",
+          "structure": "list"
+      }
     },
     {
       "subRuleName": "测试子规则3#日期比较",
       "subRuleCode": "sub_rule3",
       "param": {
         "type": "Date",
-        "code": "input.date1"
+        "code": "input.date1",
+        "structure": "single"
       },
       "matchMethod": "dateAfter",
-      "matchCondition": "all",
-      "value": [
-        {
+      "value": {
           "type": "Date",
-          "value": "1817268073904"
-        }
-      ]
+          "value": "1817268073904",
+          "structure": "single"
+      }
     },
     {
       "subRuleName": "测试子规则4#动态数据源",
       "subRuleCode": "sub_rule4",
       "param": {
         "type": "String",
-        "code": "input.dynamicParam"
+        "code": "input.dynamicParam",
+        "structure": "single"
       },
-      "matchMethod": "inList",
-      "value": [
-        {
-          "type": "Dynamic",
-          "dataSource": {
-            "type": "mysql",
-            "db": "test_db",
-            "tb": "test_tb",
-            "col": "a",
-            "where": ["a = 1"]
-          }
-        }
-      ]
+      "matchMethod": "leftEqualRight",
+      "value": {
+          "type": "String",
+          "value": "1",
+          "structure": "dynamic"
+      }
     },
     {
       "subRuleName": "测试子规则5#列表匹配",
       "subRuleCode": "sub_rule5",
       "param": {
-        "type": "List",
-        "code": "input.inputList"
+        "type": "String",
+        "code": "input.inputList",
+        "structure": "list"
       },
       "matchMethod": "contains",
-      "value": [
-        {
-          "type": "String",
-          "value": "str"
-        }
-      ]
+      "value": {
+        "type": "String",
+        "value": "[\"str\"]",
+        "structure": "list"
+      }
     }
   ],
   "conditions" : [

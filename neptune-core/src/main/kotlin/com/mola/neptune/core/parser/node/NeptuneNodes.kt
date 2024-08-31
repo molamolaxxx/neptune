@@ -14,21 +14,21 @@ data class SubRule(
     val subRuleCode: String,
     val param: SubRuleParam,
     val matchMethod: String,
-    val matchCondition: String?,
-    val value: List<SubRuleValue>
+    val value: SubRuleValue
 ) : NeptuneRuleNode()
 
 
 data class SubRuleParam(
     val type: String,
-    val code: String
+    val code: String,
+    val structure: String
 ) : NeptuneRuleNode()
 
 
 data class SubRuleValue(
     val type: String,
     val value: String,
-    val dataSource: RuleDataSource
+    val structure: String
 ) : NeptuneRuleNode()
 
 
@@ -42,14 +42,5 @@ data class RuleAction(
     val type: String,
     val content: String?,
     val method: String?
-) : NeptuneRuleNode()
-
-
-data class RuleDataSource(
-    val type: String,
-    val db: String,
-    val tb: String,
-    val col: String,
-    val where: List<String>
 ) : NeptuneRuleNode()
 

@@ -38,7 +38,7 @@ object NeptuneExecutor {
             val script = NeptuneRuleLoader.getScript(neptuneRequest.ruleName!!)
 
             try {
-                return@submit NeptuneScriptEngine.instance.eval(script!!, neptuneRequest.paramMap)
+                return@submit NeptuneScriptEngine.instance.eval(script, neptuneRequest.paramMap)
             } catch (e: Exception) {
                 throw RuntimeException(e)
             }

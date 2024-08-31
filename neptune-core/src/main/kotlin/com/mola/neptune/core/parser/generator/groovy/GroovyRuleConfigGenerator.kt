@@ -21,15 +21,12 @@ class GroovyRuleConfigGenerator : RuleConfigGenerator() {
     override fun generateImportDependency(node: RuleConfig, visitor: NeptuneRulePartVisitor) {
         visitor.addLine("import com.mola.neptune.client.NeptuneResult")
         visitor.addLine("import com.mola.neptune.core.function.NeptuneMatchFunctions")
-        visitor.addLine("import com.mola.neptune.core.function.NeptuneDataSourceFunctions")
         visitor.addLine("import com.mola.neptune.client.RuleContext")
-        visitor.newLine()
     }
 
     override fun generateContext(node: RuleConfig, visitor: NeptuneRulePartVisitor) {
         visitor.addLine("// 初始化上下文")
         visitor.addLine("def ctx = new RuleContext()")
-        visitor.newLine()
     }
 
     override fun generateDefaultAction(node: RuleConfig, visitor: NeptuneRulePartVisitor) {

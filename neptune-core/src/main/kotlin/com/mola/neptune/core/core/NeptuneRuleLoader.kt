@@ -32,7 +32,7 @@ object NeptuneRuleLoader {
         ruleScriptMap[ruleName] = script
     }
 
-    fun getScript(ruleName: String): String? {
-        return ruleScriptMap[ruleName]
+    fun getScript(ruleName: String): String {
+        return ruleScriptMap[ruleName]!!
     }
 }

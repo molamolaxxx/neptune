@@ -7,19 +7,19 @@ package com.mola.neptune.core.enums
  * @author : molamola
  * @date : 2024-06-02 16:05
  **/
-enum class DataTypeEnum(val code: String, val desc: String) {
+enum class DataStructureEnum(val code: String, val desc: String) {
 
-    STRING("String", "字符串"),
-    NUMBER("Number","数字类型"),
-    DATE("Date", "日期");
+    LIST("list", "列表"),
+    SINGLE("single","单个元素"),
+    DYNAMIC("dynamic", "动态数据源");
 
     fun match(code: String) : Boolean{
         return this.code == code
     }
 
     companion object {
-        fun getByCode(code: String) : DataTypeEnum {
-            return DataTypeEnum.values().find {
+        fun getByCode(code: String) : DataStructureEnum {
+            return DataStructureEnum.values().find {
                     e -> e.code == code
             }!!
         }

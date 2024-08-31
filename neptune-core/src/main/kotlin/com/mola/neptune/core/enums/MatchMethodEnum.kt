@@ -23,8 +23,6 @@ enum class MatchMethodEnum(val code: String, val desc: String, val display: Stri
 
     LEFT_LESS_OR_EQUAL_RIGHT("leftGreaterOrEqualRight", "小于等于", "<="),
 
-    IN_LIST("inList", "在列表中", "属于"),
-
     CONTAINS("contains", "包含子元素", "包含")
     ;
 

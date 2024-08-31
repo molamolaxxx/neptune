@@ -22,7 +22,6 @@ abstract class NeptuneRuleNode {
             groovyRuleGeneratorMap[RuleConfig::class] = GroovyRuleConfigGenerator()
             groovyRuleGeneratorMap[RuleAction::class] = GroovyRuleActionGenerator()
             groovyRuleGeneratorMap[RuleCondition::class] = GroovyRuleConditionGenerator()
-            groovyRuleGeneratorMap[RuleDataSource::class] = GroovyRuleDataSourceGenerator()
             groovyRuleGeneratorMap[SubRule::class] = GroovySubRuleGenerator()
             groovyRuleGeneratorMap[SubRuleParam::class] = GroovySubRuleParamGenerator()
             groovyRuleGeneratorMap[SubRuleValue::class] = GroovySubRuleValueGenerator()
